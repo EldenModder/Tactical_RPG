@@ -306,6 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ca29dec2eb794e4193362cced325c5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Testing
+  unit: {fileID: 984225302}
 --- !u!4 &104878239
 Transform:
   m_ObjectHideFlags: 0
@@ -628,15 +629,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6114696752393311957, guid: 1cd25ed561a62204da8d4c96b7b52ec9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.445501
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6114696752393311957, guid: 1cd25ed561a62204da8d4c96b7b52ec9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00000047683716
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6114696752393311957, guid: 1cd25ed561a62204da8d4c96b7b52ec9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.2771161
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6114696752393311957, guid: 1cd25ed561a62204da8d4c96b7b52ec9, type: 3}
       propertyPath: m_LocalRotation.w

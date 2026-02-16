@@ -48,7 +48,7 @@ public class GridSystem
                 GridPosition gridPosition = new GridPosition(x, z);
                 Transform debugTransform = GameObject.Instantiate(debugPrefabs, GetWorldPosition(gridPosition), Quaternion.identity);
                 GridDebugObject gridDebugObject = debugTransform.GetComponent<GridDebugObject>();
-                gridDebugObject.SetGridObject(gridObjectArray[x,z]);
+                gridDebugObject.SetGridObject(GetGridObject(gridPosition));
             }
         }
     }
@@ -57,4 +57,10 @@ public class GridSystem
     {
         return gridObjectArray[gridPosition.x, gridPosition.z];
     }
+
+    public bool IsValidGridPosition(GridPosition gridPosition)
+        => gridPosition.x >= 0 && 
+        gridPosition.z >= 0 && 
+        gridPosition.x < width &&
+        gridPosition.z < height;
 }

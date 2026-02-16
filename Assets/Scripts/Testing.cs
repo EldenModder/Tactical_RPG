@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Testing : MonoBehaviour
 {
-    
+    [SerializeField] private Unit unit;
     private void Start()
     {
         
@@ -10,6 +10,9 @@ public class Testing : MonoBehaviour
 
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            unit.GetMoveAction().GetValidActionGridPositionList();
+        }
     }
 }
