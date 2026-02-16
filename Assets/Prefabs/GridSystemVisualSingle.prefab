@@ -98,6 +98,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1158346741749601021}
+  - component: {fileID: 2662751927035502549}
   m_Layer: 0
   m_Name: GridSystemVisualSingle
   m_TagString: Untagged
@@ -121,3 +122,15 @@ Transform:
   - {fileID: 7436026117495756026}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2662751927035502549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4151532415087705036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35631dff31e6c6b45bb353d260ec7508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GridSystemVisualSingle
