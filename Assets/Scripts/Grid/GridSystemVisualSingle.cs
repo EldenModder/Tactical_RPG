@@ -4,7 +4,7 @@ public class GridSystemVisualSingle : MonoBehaviour
 {
     private MeshRenderer meshRenderer;
 
-    private void Start()
+    private void Awake()
     {
         meshRenderer = GetComponentInChildren<MeshRenderer>();
     }
