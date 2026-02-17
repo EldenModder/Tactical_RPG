@@ -7,12 +7,13 @@ public class MoveAction : BaseAction
     [SerializeField] private int maxMoveDistance = 4;
 
     private Vector3 targetPosition;
-    private Animator unitAnimator;
+
+    public event EventHandler OnStartMoving;
+    public event EventHandler OnStopMoving;
 
     protected override void Awake()
     {
         base.Awake();
-        unitAnimator = GetComponentInChildren<Animator>();
         targetPosition = transform.position;
     }
 
@@ -33,21 +34,19 @@ public class MoveAction : BaseAction
                 Time.deltaTime * rotateSpeed
             ); //smoothly rotate when moving
 
-            unitAnimator.SetBool("IsWalking", true);
         }
         else
         {
-            unitAnimator.SetBool("IsWalking", false);
-            isActive = false;
-            OnActionCompleted();
+            ActionComplete();
+            OnStopMoving?.Invoke(this, EventArgs.Empty);
         }
     }
 
     public override void TakeAction(GridPosition gridPosition, Action OnActionCompleted)
     {
-        this.OnActionCompleted = OnActionCompleted;
+        ActionStart(OnActionCompleted);
         this.targetPosition = LevelGrid.Instance.GetWorldPosition(gridPosition);
-        isActive = true;
+        OnStartMoving?.Invoke(this, EventArgs.Empty);
     }
 
     public override List<GridPosition> GetValidActionGridPositionList()

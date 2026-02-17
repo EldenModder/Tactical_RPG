@@ -7,6 +7,8 @@ public class Unit : MonoBehaviour
 
     public static event EventHandler OnAnyActionPointChanged;
 
+    [SerializeField] private bool isEnemy;
+
     private GridPosition gridPosition;
     private MoveAction moveAction;
     private BaseAction[] baseActionArray;
@@ -39,6 +41,8 @@ public class Unit : MonoBehaviour
     public MoveAction GetMoveAction() => moveAction;
 
     public GridPosition GetGridPosition() => gridPosition; 
+
+    public Vector3 GetWorldPosition() => transform.position;
 
     public BaseAction[] GetBaseActionsArray() => baseActionArray;
 
@@ -76,7 +80,18 @@ public class Unit : MonoBehaviour
 
     private void TurnManager_OnTurnChanged(object sender, EventArgs e)
     {
-        actionPoint = ACTION_POINTS_MAX;
-        OnAnyActionPointChanged?.Invoke(this, EventArgs.Empty);
+        //if it a enemy and it's enemy turn or if it's not a enemy and it's player turn 
+        // refresh the action point
+        if ((IsEnemy() && !TurnManager.Instance.IsPlayerTurn()) ||
+            (!IsEnemy() && TurnManager.Instance.IsPlayerTurn()))
+        {
+            actionPoint = ACTION_POINTS_MAX;
+            OnAnyActionPointChanged?.Invoke(this, EventArgs.Empty);
+        }
+        
     }
+
+    public bool IsEnemy() => isEnemy;
+
+    public void Damage() { }
 }

@@ -1,0 +1,132 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class ShootAction : BaseAction
+{
+
+    [SerializeField] private int maxShootDistance = 7;
+
+    public event EventHandler OnShoot;
+    private enum State
+    {
+        Aiming,
+        Shooting,
+        Cooloff
+    } private State state;
+    private float stateTimer;
+    private Unit targetUnit;
+    private bool canShoot;
+
+    public override string GetActionName() => "Shoot";
+
+    private void Update()
+    {
+        if (!isActive) return;
+        stateTimer -= Time.deltaTime;
+        switch (state)
+        {
+            case State.Aiming:
+                Rotate();
+                break;
+            case State.Shooting:
+                if (canShoot)
+                {
+                    Shoot();
+                    canShoot = false;
+                }
+                break;
+            case State.Cooloff:
+                ActionComplete();
+                break;
+        }
+        if (stateTimer <= 0f)
+        {
+            NextState();
+        }
+    }
+
+    private void Shoot()
+    {
+        OnShoot?.Invoke(this, EventArgs.Empty); 
+        targetUnit.Damage();
+    }
+
+    private void Rotate()
+    {
+        float rotateSpeed = 10f;
+        Vector3 aimDir = (targetUnit.GetWorldPosition() - unit.transform.position).normalized;
+        transform.forward = Vector3.Lerp(
+            transform.forward,
+            aimDir,
+            Time.deltaTime * rotateSpeed
+        ); //smoothly rotate toward target
+    }
+    private void NextState()
+    {
+        switch (state)
+        {
+            case State.Aiming:
+                if (stateTimer <= 0f)
+                {
+                    state = State.Shooting;
+                    float shootingStateTime = 0.1f;
+                    stateTimer = shootingStateTime;
+                }
+                break;
+            case State.Shooting:
+                if (stateTimer <= 0f)
+                {
+                    state = State.Cooloff;
+                    float cooloffStateTime = 0.5f;
+                    stateTimer = cooloffStateTime;
+                }
+                break;
+            case State.Cooloff:
+                if (stateTimer <= 0f)
+                {
+                    isActive = false;
+                    OnActionCompleted();
+                }
+                break;
+        }
+    }
+    public override List<GridPosition> GetValidActionGridPositionList()
+    {
+        List<GridPosition> validGridPositionList = new List<GridPosition>();
+
+        GridPosition unitGridPosition = unit.GetGridPosition();
+
+        //cycle trought all potential grid position within the max move range
+        for (int x = -maxShootDistance; x <= maxShootDistance; x++)
+        {
+            for (int z = -maxShootDistance; z <= maxShootDistance; z++)
+            {
+                GridPosition offsetGridPosition = new GridPosition(x, z);
+                GridPosition testGridPosition = unitGridPosition + offsetGridPosition;
+
+                if (!LevelGrid.Instance.IsValidGridPosition(testGridPosition)) continue; //test if it's valid
+                int testDistance = Mathf.Abs(x) + Mathf.Abs(z);
+                if (testDistance > maxShootDistance) continue;
+
+                if (!LevelGrid.Instance.HasAnyUnitOnGridPosition(testGridPosition)) continue; //position empty
+                
+                Unit targetUnit = LevelGrid.Instance?.GetUnitAtGridPosition(testGridPosition);
+                if (targetUnit.IsEnemy() == unit.IsEnemy()) continue; //Both unit on same team
+                validGridPositionList.Add(testGridPosition);
+            }
+        }
+
+        return validGridPositionList;
+    }
+
+    public override void TakeAction(GridPosition gridPosition, Action OnActionComplete)
+    {
+        ActionStart(OnActionComplete);
+        targetUnit = LevelGrid.Instance.GetUnitAtGridPosition(gridPosition);
+        state = State.Aiming;
+        float aimingStateTime = 1f;
+        stateTimer = aimingStateTime;
+        canShoot = true;
+    }
+}

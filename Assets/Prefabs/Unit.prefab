@@ -115,6 +115,8 @@ GameObject:
   - component: {fileID: 1895809052002842734}
   - component: {fileID: -1689643166845720808}
   - component: {fileID: 5907725146393901836}
+  - component: {fileID: 6040771633797484699}
+  - component: {fileID: 984761074884164124}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Untagged
@@ -151,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4288e2cdec5dbd14aa113b650863040c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unit
+  isEnemy: 0
 --- !u!136 &-1689643166845720808
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -186,6 +189,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 829b61c4ad220a74da1384c46f67ce6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoveAction
+  maxMoveDistance: 4
+--- !u!114 &6040771633797484699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8038305230880786911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a16174c27976a214fb4dc9d67dd892ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShootAction
+  maxShootDistance: 7
+--- !u!114 &984761074884164124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8038305230880786911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dda10314e675771498867b0ff6a1f0fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitAnimator
 --- !u!1001 &1603304271698549826
 PrefabInstance:
   m_ObjectHideFlags: 0
