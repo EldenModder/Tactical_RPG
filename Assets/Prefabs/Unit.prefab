@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 6040771633797484699}
   - component: {fileID: 984761074884164124}
   - component: {fileID: 5703828325909176744}
+  - component: {fileID: 2398240220411975770}
   m_Layer: 7
   m_Name: Unit
   m_TagString: Untagged
@@ -235,6 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShootAction
   maxShootDistance: 7
+  damage: 40
 --- !u!114 &984761074884164124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +263,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c8547efe6e4694a91cd96d792b1f9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
+  maxHealth: 100
+--- !u!114 &2398240220411975770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8038305230880786911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62e3e55f966ec0a4b845416704c402e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RagdollSpawner
+  ragdollPrefab: {fileID: 6114696752393311957, guid: 203829f271a39ad4ba15dfd5b518c4ce, type: 3}
+  originalRootBone: {fileID: 1608260476631811864}
 --- !u!1001 &1603304271698549826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -561,6 +578,11 @@ Transform:
 --- !u!4 &1607875859964744450 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4580766925885248, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
+  m_PrefabInstance: {fileID: 1603304271698549826}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1608260476631811864 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4966341056781146, guid: 2f3e27eecb190e44a9af50723c394274, type: 3}
   m_PrefabInstance: {fileID: 1603304271698549826}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8050728915011408099
