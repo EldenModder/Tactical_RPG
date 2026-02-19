@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    private const int ACTION_POINTS_MAX = 2;
+    private const int ACTION_POINTS_MAX = 7;
 
     public static event EventHandler OnAnyActionPointChanged;
     public static event EventHandler OnAnyUnitSpawned;

@@ -7,7 +7,9 @@ public class ShootAction : BaseAction
 
     [SerializeField] private int maxShootDistance = 7;
     [SerializeField] private int damage = 40;
+    [SerializeField] private LayerMask obstacleLayerMask;
 
+    public static event EventHandler<OnShootEventArgs> OnAnyShoot;
     public event EventHandler<OnShootEventArgs> OnShoot;
 
     public class OnShootEventArgs : EventArgs
@@ -55,6 +57,7 @@ public class ShootAction : BaseAction
 
     private void Shoot()
     {
+        OnAnyShoot?.Invoke(this, new OnShootEventArgs { targetUnit = targetUnit, shootingUnit = unit });
         OnShoot?.Invoke(this, new OnShootEventArgs { targetUnit = targetUnit, shootingUnit = unit}); 
         targetUnit.Damage(damage);
     }
@@ -125,6 +128,17 @@ public class ShootAction : BaseAction
                 
                 Unit targetUnit = LevelGrid.Instance?.GetUnitAtGridPosition(testGridPosition);
                 if (targetUnit.IsEnemy() == unit.IsEnemy()) continue; //Both unit on same team
+
+                Vector3 unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitGridPosition);
+                Vector3 shootDir = (targetUnit.GetWorldPosition() - unitWorldPosition).normalized;
+
+                float unitShoulderHeight = 1.7f;
+                if (Physics.Raycast(
+                    unitWorldPosition + Vector3.up * unitShoulderHeight,
+                    shootDir,
+                    Vector3.Distance(unitWorldPosition, targetUnit.GetWorldPosition()),
+                    obstacleLayerMask)) continue; //Blocked by an obstacle
+
                 validGridPositionList.Add(testGridPosition);
             }
         }
