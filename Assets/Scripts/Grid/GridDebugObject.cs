@@ -3,14 +3,14 @@ using TMPro;
 
 public class GridDebugObject : MonoBehaviour
 {
-    private GridObject gridObject;
+    private object gridObject;
     [SerializeField] private TextMeshProUGUI text;
-    public void SetGridObject(GridObject gridObject)
+    public virtual void SetGridObject(object gridObject)
     {
         this.gridObject = gridObject;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         text.text = gridObject.ToString();
     }
