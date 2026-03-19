@@ -30,7 +30,7 @@ public class UnitActionSystem : MonoBehaviour
 
     private void Start()
     {
-        SetSelectedUnit(selectedUnit);
+        if (selectedUnit) SetSelectedUnit(selectedUnit);
     }
 
     private void Update()
@@ -39,11 +39,13 @@ public class UnitActionSystem : MonoBehaviour
         if (!TurnManager.Instance.IsPlayerTurn()) return;
         if (EventSystem.current.IsPointerOverGameObject()) return;
         if (TryHandleUnitSelection()) return;
-        HandleSelectedAction();
+        if (selectedUnit != null) HandleSelectedAction();
     }
 
     private void HandleSelectedAction()
     {
+        if (selectedUnit == null) return;
+        if (selectedAction == null) return;
         if (Input.GetMouseButtonDown(0))
         {
             //get the grid position base on the mouse position
@@ -92,11 +94,14 @@ public class UnitActionSystem : MonoBehaviour
         return false;
     }
 
-    private void SetSelectedUnit(Unit unit)
-    { 
-        selectedUnit = unit;
-        SetSelectedAction(unit.GetAction<MoveAction>());
-        OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
+    public void SetSelectedUnit(Unit unit)
+    {
+        if (unit != null)
+        {
+            selectedUnit = unit;
+            SetSelectedAction(unit.GetAction<MoveAction>());
+            OnSelectedUnitChanged?.Invoke(this, EventArgs.Empty);
+        }
     }
     public void SetSelectedAction(BaseAction baseAction) 
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelGrid : MonoBehaviour
 {
     public static LevelGrid Instance { get; private set; }
-    [SerializeField] private Transform gridDebugObject;
+    //[SerializeField] private Transform gridDebugObject;
     [SerializeField] private int width, height;
     [SerializeField] private float cellSize;
 

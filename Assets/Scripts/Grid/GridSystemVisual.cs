@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.UI.CanvasScaler;
 
 public class GridSystemVisual : MonoBehaviour
 {
@@ -119,10 +117,12 @@ public class GridSystemVisual : MonoBehaviour
 
     private void UpdateGridVisual()
     {
+        if (LevelGrid.Instance == null) return;
         HideallGridPosition();
-        Unit selectedUnit = UnitActionSystem.Instance.GetSelectedUnit();
+        Unit selectedUnit = UnitActionSystem.Instance?.GetSelectedUnit();
         BaseAction selectedAction = UnitActionSystem.Instance?.GetSelectedAction();
         GridVisualType gridVisualType;
+        if (selectedUnit == null || selectedAction == null) return;
         switch(selectedAction)
         {
             default:

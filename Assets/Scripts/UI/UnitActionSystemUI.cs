@@ -23,7 +23,7 @@ public class UnitActionSystemUI : MonoBehaviour
         UnitActionSystem.Instance.OnActionStarted += UnitActionSystem_OnActionStarted;
         TurnManager.Instance.OnTurnChanged += TurnManager_OnTurnChanged;
         Unit.OnAnyActionPointChanged += Unit_OnAnyActionPointChanged;
-        CreateUnitActionButtons();
+        if (UnitActionSystem.Instance.GetSelectedUnit() != null) CreateUnitActionButtons();
         UpdateSelectedVisual();
         UpdateActionPoints();
     }
@@ -40,6 +40,7 @@ public class UnitActionSystemUI : MonoBehaviour
 
 
         Unit selectedUnit = UnitActionSystem.Instance?.GetSelectedUnit();
+        if (selectedUnit == null) return;
         foreach (BaseAction baseAction in selectedUnit.GetBaseActionsArray())
         {
             //instantiate in the parent
@@ -79,6 +80,7 @@ public class UnitActionSystemUI : MonoBehaviour
     private void UpdateActionPoints()
     {
         Unit selectedUnit = UnitActionSystem.Instance?.GetSelectedUnit();
+        if ( selectedUnit == null) return;
         actionPointText.text = "Action Points: " + selectedUnit.GetActionPoint();
     }
 
