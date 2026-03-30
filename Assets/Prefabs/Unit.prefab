@@ -745,7 +745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ed67a6b946c6f449f5207e2be68cfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GrenadeAction
-  maxThrowDistance: 7
+  maxThrowDistance: 4
   GrenadePrefab: {fileID: 7933580470809548269, guid: 0f5ddb7122b580949bbde9937abd8c3d, type: 3}
 --- !u!114 &1363061411531440861
 MonoBehaviour:

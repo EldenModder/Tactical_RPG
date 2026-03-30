@@ -28,7 +28,7 @@ public class MoveAction : BaseAction
         if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
         {
             float moveSpeed = 4f;
-            transform.position += moveDirection * moveSpeed * Time.deltaTime;
+            transform.position += moveDirection * (moveSpeed * Time.deltaTime);
         }
         else
         {
@@ -55,6 +55,7 @@ public class MoveAction : BaseAction
         foreach (GridPosition pathGridPosition in pathGridPositionList)
         {
             PositionList.Add(LevelGrid.Instance.GetWorldPosition(pathGridPosition));
+            LevelGrid.Instance.RemoveUnitAtGridPosition(pathGridPosition, UnitSpawnManager.instance.GetSelectedUnit());
         }
         OnStartMoving?.Invoke(this, EventArgs.Empty);
         ActionStart(OnActionCompleted);
